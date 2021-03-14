@@ -25,6 +25,9 @@
                     Logout
                 </el-menu-item>
             </el-submenu>
+            <el-menu-item class="right" index="/posts">
+                Posts
+            </el-menu-item>
             <el-menu-item class="right" index="/dashboard">
                 Dashboard
             </el-menu-item>
