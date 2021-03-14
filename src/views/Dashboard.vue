@@ -124,6 +124,18 @@
                     </el-button>
                 </el-form-item>
             </el-form>
+            <el-divider></el-divider>
+            <el-form class="form-dashboard">
+                <el-form-item>
+                    <el-input type="textarea" :rows="3" v-model="latexContent">
+                    </el-input>
+                </el-form-item>
+                <el-form-item>
+                    <el-button @click="exportLatex">
+                        Export as Latex
+                    </el-button>
+                </el-form-item>
+            </el-form>
         </el-col>
         <el-col :span="7" class="col-dashboard">
             <el-card class="card-dashboard" header="Back edges">
@@ -174,7 +186,8 @@ export default {
                         ids: ""
                     }
                 }
-            }
+            },
+            latexContent: ""
         };
     },
     methods: {
@@ -255,6 +268,19 @@ export default {
             this.axios.get(this.$u.api("/layout/update")).then(resp => {
                 if (resp.data.code === 0) {
                     this.$router.go(0);
+                }
+            });
+        },
+        exportLatex() {
+            this.axios.get(this.$u.api("/export/latex")).then(resp => {
+                if (resp.data.code === 0) {
+                    this.latexContent = resp.data.data;
+                    this.$message({
+                        message: resp.data.message,
+                        type: "success"
+                    });
+                } else {
+                    this.$error(resp.data.message);
                 }
             });
         }
