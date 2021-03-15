@@ -28,11 +28,8 @@ body {
     padding: 0px;
 }
 .tree-span {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     font-size: 14px;
+    width: 100%;
 }
 .tree-link {
     text-decoration: none;

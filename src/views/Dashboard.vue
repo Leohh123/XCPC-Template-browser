@@ -193,12 +193,27 @@ export default {
     methods: {
         renderContent(h, { node, data, store }) {
             return (
-                <span class="tree-span">
+                <div class="tree-span">
                     <span>
-                        <span>{node.label}</span>
+                        {data.display ? (
+                            <span style="margin-right: 6px">{node.label}</span>
+                        ) : (
+                            <span style="margin-right: 6px; color: #c0c4cc">
+                                <del>
+                                    <i>{node.label}</i>
+                                </del>
+                            </span>
+                        )}
+                        {data["post_id"] === -1 && data.items.length === 0 ? (
+                            <i class="el-icon-warning"></i>
+                        ) : (
+                            ""
+                        )}
                     </span>
-                    <span style="margin-right: 6px">{`[${data.id}]`}</span>
-                </span>
+                    <span style="float: right; margin-right: 6px">
+                        {`[${data.id}]`}
+                    </span>
+                </div>
             );
         },
         request(title, url, data, method = "post") {
