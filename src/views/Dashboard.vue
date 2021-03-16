@@ -3,16 +3,19 @@
         <el-col :span="7" class="col-dashboard">
             <el-tree
                 class="tree-dashboard"
+                ref="treeDashboard"
                 :data="layout"
                 :props="{
                     children: 'items',
                     label: 'name'
                 }"
                 node-key="id"
-                :default-expand-all="true"
                 :render-content="renderContent"
             >
             </el-tree>
+            <el-button style="margin: 6px 6px" @click="expandOrCollapseAll">
+                {{ expandState ? "Collapse All" : "Expand all" }}
+            </el-button>
         </el-col>
         <el-col :span="10" class="col-dashboard">
             <el-form
@@ -187,7 +190,8 @@ export default {
                     }
                 }
             },
-            latexContent: ""
+            latexContent: "",
+            expandState: false
         };
     },
     methods: {
@@ -298,6 +302,13 @@ export default {
                     this.$error(resp.data.message);
                 }
             });
+        },
+        expandOrCollapseAll() {
+            this.expandState = !this.expandState;
+            var nodes = this.$refs.treeDashboard.store.nodesMap;
+            for (var i in nodes) {
+                nodes[i].expanded = this.expandState;
+            }
         }
     },
     mounted() {
